@@ -1,3 +1,4 @@
+using HotelListingApp.Configurations;
 using HotelListingApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -16,6 +17,8 @@ internal class Program
             option =>
             option.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"))
             );
+
+        builder.Services.AddAutoMapper(typeof(MapperInitilizer));
 
         builder.Services.AddControllers();
 

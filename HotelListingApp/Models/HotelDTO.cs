@@ -8,20 +8,20 @@ namespace HotelListingApp.Models;
 
 public class CreateHotelDTO
 {
-    [Required, MaxLength(50)]
+    [Required, MaxLength(150)]
     public string Name { get; set; }
     [Required, MaxLength(255)]
     public string Address { get; set; }
-    [Required]
+    [Required , Range(1,5)]
     public double Rating { get; set; }
 
 
-    [ForeignKey(nameof(Country))]
+    [Required]
     public int CountryId { get; set; }
-    public Country Country { get; set; }
 }
 
 public class HotelDTO : CreateHotelDTO
 {
     public int Id { get; set; }
+    public CountryDTO Country { get; set; }
 }
