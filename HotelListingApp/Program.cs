@@ -1,5 +1,7 @@
 using HotelListingApp.Configurations;
 using HotelListingApp.Data;
+using HotelListingApp.iRepository;
+using HotelListingApp.Repository;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
@@ -20,8 +22,6 @@ internal class Program
 
         builder.Services.AddAutoMapper(typeof(MapperInitilizer));
 
-        builder.Services.AddControllers();
-
         builder.Services.AddCors(o =>
         {
             o.AddPolicy("AllowAll", builder =>
@@ -29,6 +29,8 @@ internal class Program
             .AllowAnyMethod()
             .AllowAnyHeader());
         });
+
+        builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
@@ -42,6 +44,7 @@ internal class Program
             rollingInterval: RollingInterval.Day,
             restrictedToMinimumLevel: LogEventLevel.Information));
 
+        builder.Services.AddControllers().AddNewtonsoftJson()
 
         var app = builder.Build();
 
