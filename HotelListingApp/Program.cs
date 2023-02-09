@@ -44,7 +44,8 @@ internal class Program
             rollingInterval: RollingInterval.Day,
             restrictedToMinimumLevel: LogEventLevel.Information));
 
-        builder.Services.AddControllers().AddNewtonsoftJson()
+        builder.Services.AddControllers().AddNewtonsoftJson(op =>
+        op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); 
 
         var app = builder.Build();
 
